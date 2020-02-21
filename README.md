@@ -3,7 +3,7 @@
 This project currently contains a PoC of Bryntum Gantt Chart integration for Vaadin. It can render basic charts, but the API has not been tested in any real app. Also, it is currently not packaged as a Vaadin add-on, but just contains implementation in a Spring Boot project.
 
 
-![Screenshot](https://github.com//mstahv/bryntum-gantt-vaadin/master/screenshot.png?raw=true "Screenshot")
+![Screenshot](https://github.com/mstahv/bryntum-gantt-vaadin/master/screenshot.png?raw=true "Screenshot")
 
 
 ## Running the Application

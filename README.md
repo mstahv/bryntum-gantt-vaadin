@@ -5,6 +5,7 @@ This project currently contains a PoC of [Bryntum Gantt Chart](https://www.brynt
 
 ![Screenshot](https://github.com/mstahv/bryntum-gantt-vaadin/blob/master/screenshot.png?raw=true "Screenshot")
 
+Note, the LICENSE applies only to the integration part, not to the Bryntum Gantt Chart.
 
 ## Running the Application
 

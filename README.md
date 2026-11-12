@@ -1,30 +1,72 @@
-# Vaadin Integration example for Bryntum Gantt Chart
+# Bryntum Gantt for Vaadin
 
-*To run the example, download Bryntum Gantt library and install it to /fronend folder. See more from Runnint the Application section below.*
-
-This project currently contains a PoC of [Bryntum Gantt Chart](https://www.bryntum.com/products/gantt/) integration for Vaadin. It can render basic charts, but the API has not been tested in any real app. Also, it is currently not packaged as a Vaadin add-on, but just contains implementation in a Spring Boot project.
+A Vaadin add-on wrapping [Bryntum Gantt](https://bryntum.com/products/gantt/). Since Bryntum 8, the Community tier of
+Bryntum Gantt is MIT licensed and published to the public npm registry, so the add-on works out of the box: the
+`@bryntum/gantt-community` npm package is pulled in automatically by the Vaadin build, nothing needs to be
+downloaded manually.
 
 ![Screenshot](https://github.com/mstahv/bryntum-gantt-vaadin/blob/master/screenshot.png?raw=true "Screenshot")
 
+Requirements: Vaadin 25+, Java 21+.
 
-Note, the LICENSE applies only to the integration part, not to the Bryntum Gantt Chart.
+## Usage
 
-## Running the Application
+```java
+GanttChart gantt = new GanttChart();
 
-Download Bryntum Gantt Chart and install gantt.module.js and gantt.default.css and fonts directory (fontawesome) to the frontend folder, next to the ganttConnector.js file.
+Task launch = gantt.addTask("Launch SaaS Product");
+Task webServer = launch.addChild("Setup web server");
+Task apache = webServer.addChild("Install Apache", LocalDate.now(), 3);
+apache.setPercentDone(50);
+Task ports = webServer.addChild("Configure ports", LocalDate.now(), 2);
 
-Import the project to the IDE of your choosing as a Maven project.
+gantt.addDependency(apache, ports).setLag(1);
 
-Run the application using `mvn spring-boot:run` or by running the `Application` class directly from your IDE.
+// Edits made in the browser (drag, resize, cell & task editing) are synchronized
+// to the Task objects, and rescheduled tasks are reported as well
+gantt.addTasksChangedListener(e -> e.getTasks().forEach(task -> saveToDb(task)));
+gantt.addTasksRemovedListener(e -> e.getTasks().forEach(task -> deleteFromDb(task)));
 
-Open http://localhost:8080/ in your browser.
+add(gantt);
+```
 
-If you want to run the application locally in the production mode, run `mvn spring-boot:run -Pproduction`.
+Other features of the Java API:
 
-To run Integration Tests, execute `mvn verify -Pintegration-tests`.
+* `setColumns(Column.wbs(), Column.name(), Column.startDate(), Column.of("enddate").withWidth(120))` - define grid columns
+* `setReadOnly(true)` - disable editing
+* `zoomToFit()`, `scrollToTask(task)`, `setZoomToFitOnLoad(false)`
+* `addTask`, `removeTask`, `addDependency`, `removeDependency`, `findTask(id)`
+* `refresh()` - push changes to the browser after modifying `Task`/`Dependency` objects directly
 
-## More Information
+The server side model is the source of truth. Adding tasks, creating dependencies and re-parenting tasks in the
+browser are disabled for now, those are done via the Java API.
 
-- [Vaadin Flow](https://vaadin.com/flow) documentation
-- [Using Vaadin and Spring](https://vaadin.com/docs/v14/flow/spring/tutorial-spring-basic.html) article
+Note that the Community tier contains a subset of Bryntum Gantt features (see the
+[feature table](https://www.npmjs.com/package/@bryntum/gantt-community)). Features like the full task editor,
+critical paths, baselines or PDF export require a commercial Bryntum license and the `-core`/`-enterprise` packages.
 
+## Development
+
+Run the `TestServer` class (in `src/test/java`) from your IDE and open http://localhost:8080/. The usage examples
+(`BasicGanttUsageUI`, `DynamicGanttUI`) are listed there.
+
+* `mvn test` runs the unit tests
+* `mvn verify` runs also the browser tests (Playwright, headless). Add `-Dheadful` to see the browser.
+
+Note, Vaadin 25.3+ installs npm packages with `--min-release-age=1`, so a Bryntum version released less than a day ago
+can't be installed by the Vaadin build. Run `npm install` manually in the project directory if you hit that.
+
+## Installation
+
+```xml
+<dependency>
+    <groupId>in.virit</groupId>
+    <artifactId>bryntum-gantt-vaadin</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+## License
+
+The integration code is licensed under the [Apache License 2.0](LICENSE). Bryntum Gantt Community is licensed under
+the MIT license by Bryntum.

@@ -9,7 +9,7 @@
     </parent>
     <groupId>in.virit</groupId>
     <artifactId>bryntum-gantt-vaadin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>Bryntum Gantt for Vaadin</name>
     <description>A Vaadin add-on for Bryntum Gantt (the MIT licensed Community tier). Show and edit project schedules with tasks, dependencies and a scheduling engine using a plain Java API.</description>
     <packaging>jar</packaging>

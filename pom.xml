@@ -1,15 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>in.virit.sb</groupId>
         <artifactId>viritin-addon-project-parent</artifactId>
         <version>0.0.10</version>
-        <relativePath/>
+        <relativePath />
     </parent>
     <groupId>in.virit</groupId>
     <artifactId>bryntum-gantt-vaadin</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Bryntum Gantt for Vaadin</name>
     <description>A Vaadin add-on for Bryntum Gantt (the MIT licensed Community tier). Show and edit project schedules with tasks, dependencies and a scheduling engine using a plain Java API.</description>
     <packaging>jar</packaging>
@@ -37,7 +36,7 @@
         <url>https://github.com/${github.account}/${github.project}</url>
         <connection>scm:git:git://github.com/${github.account}/${github.project}.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/${github.account}/${github.project}.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>bryntum-gantt-vaadin-1.0.0</tag>
     </scm>
     <issueManagement>
         <system>GitHub</system>
